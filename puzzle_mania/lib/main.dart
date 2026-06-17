@@ -27,6 +27,7 @@ class AppSettings {
 const String _saveKey = 'puzzle_mania_save_state';
 const String _settingsKey = 'puzzle_mania_settings';
 const String _developerModeKey = 'puzzle_mania_developer_mode';
+const Size _webDesignSize = Size(430, 932);
 
 final ValueNotifier<bool> appThemeNotifier = ValueNotifier<bool>(AppSettings.darkMode);
 final ValueNotifier<bool> developerModeNotifier = ValueNotifier<bool>(false);
@@ -413,9 +414,63 @@ class _PuzzleManiaAppState extends State<PuzzleManiaApp>
               themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
               theme: _buildAppTheme(Brightness.light),
               darkTheme: _buildAppTheme(Brightness.dark),
+              builder: (context, child) {
+                if (child == null) {
+                  return const SizedBox.shrink();
+                }
+                if (!kIsWeb) {
+                  return child;
+                }
+                return _WebPhoneFrame(child: child);
+              },
               home: home,
             );
           },
+        );
+      },
+    );
+  }
+}
+
+class _WebPhoneFrame extends StatelessWidget {
+  const _WebPhoneFrame({required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final scale = math.min(
+          constraints.maxWidth / _webDesignSize.width,
+          constraints.maxHeight / _webDesignSize.height,
+        );
+        final centeredChild = MediaQuery(
+          data: MediaQuery.of(context).copyWith(
+            size: _webDesignSize,
+            devicePixelRatio: 1.0,
+          ),
+          child: SizedBox(
+            width: _webDesignSize.width,
+            height: _webDesignSize.height,
+            child: child,
+          ),
+        );
+        return ColoredBox(
+          color: AppColors.background,
+          child: Center(
+            child: ClipRect(
+              child: Transform.scale(
+                scale: scale.isFinite && scale > 0 ? scale : 1.0,
+                alignment: Alignment.center,
+                child: SizedBox(
+                  width: _webDesignSize.width,
+                  height: _webDesignSize.height,
+                  child: centeredChild,
+                ),
+              ),
+            ),
+          ),
         );
       },
     );
