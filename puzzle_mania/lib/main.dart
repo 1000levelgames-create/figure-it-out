@@ -27,7 +27,8 @@ class AppSettings {
 const String _saveKey = 'puzzle_mania_save_state';
 const String _settingsKey = 'puzzle_mania_settings';
 const String _developerModeKey = 'puzzle_mania_developer_mode';
-const Size _webDesignSize = Size(430, 932);
+// Samsung S22 Ultra portrait aspect ratio: 1440 / 3088 ~= 0.466.
+const Size _webDesignSize = Size(1440, 3088);
 
 final ValueNotifier<bool> appThemeNotifier = ValueNotifier<bool>(AppSettings.darkMode);
 final ValueNotifier<bool> developerModeNotifier = ValueNotifier<bool>(false);
