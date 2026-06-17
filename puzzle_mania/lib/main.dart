@@ -80,7 +80,9 @@ Future<List<_LevelData>> _loadAllLevels() async {
 
 Future<void> _bootstrapAppResources() async {
   await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
-  await MobileAds.instance.initialize();
+  if (!kIsWeb) {
+    await MobileAds.instance.initialize();
+  }
   try {
     await Firebase.initializeApp();
     FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
@@ -237,10 +239,16 @@ class _AppBannerAdState extends State<AppBannerAd> {
   @override
   void initState() {
     super.initState();
+    if (kIsWeb) {
+      return;
+    }
     _loadBannerAd();
   }
 
   void _loadBannerAd() {
+    if (kIsWeb) {
+      return;
+    }
     final bannerAd = BannerAd(
       adUnitId: AdHelper.bannerAdUnitId(),
       size: AdSize.banner,
@@ -273,6 +281,9 @@ class _AppBannerAdState extends State<AppBannerAd> {
 
   @override
   Widget build(BuildContext context) {
+    if (kIsWeb) {
+      return const SizedBox.shrink();
+    }
     if (!_isLoaded || _bannerAd == null) {
       return const SizedBox(height: 0);
     }
@@ -1157,7 +1168,7 @@ class _GameScreenState extends State<GameScreen>
   }
 
   void _loadInterstitialAd() {
-    if (!_shouldUseInterstitialAds) {
+    if (kIsWeb || !_shouldUseInterstitialAds) {
       return;
     }
     if (_interstitialAdLoading || _interstitialAd != null) {
@@ -1225,7 +1236,7 @@ class _GameScreenState extends State<GameScreen>
     final nextLevelIndex = (_currentLevelIndex + 1) % _levelCount;
     final shouldShowInterstitial = AdHelper.interstitialAdsEnabled &&
         _completedLevelsSinceInterstitial >= 2;
-    if (!_shouldUseInterstitialAds) {
+    if (kIsWeb || !_shouldUseInterstitialAds) {
       _completedLevelsSinceInterstitial = 0;
       setState(() {
         _loadLevel(nextLevelIndex);
@@ -1276,7 +1287,7 @@ class _GameScreenState extends State<GameScreen>
   }
 
   void _loadRewardedAd() {
-    if (!AdHelper.rewardedAdsEnabled) {
+    if (kIsWeb || !AdHelper.rewardedAdsEnabled) {
       return;
     }
     if (_rewardedAdLoading || _rewardedAd != null) {
@@ -1338,7 +1349,7 @@ class _GameScreenState extends State<GameScreen>
   }
 
   Future<void> _showRewardedAdForHint() async {
-    if (!AdHelper.rewardedAdsEnabled) {
+    if (kIsWeb || !AdHelper.rewardedAdsEnabled) {
       setState(() {
         _hints = 1;
       });
@@ -1655,7 +1666,8 @@ class _GameScreenState extends State<GameScreen>
   }
 
   bool get _shouldUseInterstitialAds {
-    return AdHelper.interstitialAdsEnabled &&
+    return !kIsWeb &&
+        AdHelper.interstitialAdsEnabled &&
         _levels.isNotEmpty &&
         _levels[_currentLevelIndex].id >= 10;
   }
