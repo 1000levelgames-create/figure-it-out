@@ -1,0 +1,29 @@
+android Ad:
+
+banner
+app ID: ca-app-pub-4261132020137319~9935711673
+ad unit ID: ca-app-pub-4261132020137319/5065694226
+
+rewarded
+app ID: ca-app-pub-4261132020137319~9935711673
+ad unit ID: ca-app-pub-4261132020137319/2436495601
+
+interstitial:
+app ID: ca-app-pub-4261132020137319~9935711673
+ad unit ID: ca-app-pub-4261132020137319/3558005581
+
+
+IOS Ad:
+
+banner
+app ID: ca-app-pub-4261132020137319~6838775047
+ad unit ID: ca-app-pub-4261132020137319/5445802322
+
+rewarded
+app ID: ca-app-pub-4261132020137319~6838775047
+ad unit ID: ca-app-pub-4261132020137319/6609834475
+
+interstitial:
+app ID: ca-app-pub-4261132020137319~6838775047
+ad unit ID: ca-app-pub-4261132020137319/2244923914
+

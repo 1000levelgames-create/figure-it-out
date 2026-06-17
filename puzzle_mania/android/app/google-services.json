@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "927443046307",
+    "project_id": "figure-it-out-b13c0",
+    "storage_bucket": "figure-it-out-b13c0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:927443046307:android:18b27272a7de28f6d39416",
+        "android_client_info": {
+          "package_name": "com.level1000games.figureitout"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnGvSq9_0uAN99yW1y4LAEQQ9xpmRuewg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
